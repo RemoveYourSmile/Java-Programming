@@ -38,7 +38,13 @@ public class taskB {
                         System.out.println(new BigInteger(s[0]).pow(Integer.parseInt(s[1])));
                         break;
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e){
+                System.out.println("Не верный формат числа");
+            }
+            catch (ArithmeticException e){
+                System.out.println("Арифметическая ошибка");
+            }
+            catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
