@@ -7,25 +7,47 @@ import java.util.Scanner;
 public class taskC {
     public static void main(String[] args){
 
+
+
         File file = new File("input.txt");
 
         try {
             Scanner in = new Scanner(file);
             FileWriter out = new FileWriter("output.txt");
-
+            String toWrite;
             while (in.hasNextLine()){
-                String[] words = in.nextLine().split(" ");
-                if (words.length >= 3){
-                    if (isNumeric(words[2])){
-                        out.write(words[1] + " " + words[0].charAt(0) + ".\n");
-                    } else {
-                        out.write(words[1] + " " + words[0].charAt(0) + "." + words[2].charAt(0) + ".\n");
-                    }
-                } else if (words.length == 2){
-                    out.write(words[1] + " " + words[0].charAt(0) + ".\n");
-                } else if (words.length == 1){
+                int counter = 0;
+                toWrite = "%s %s%s";
+                String nextLine = in.nextLine();
+
+                if (nextLine.isEmpty()) {
                     out.write("\n");
+                    continue;
                 }
+
+                String[] words = nextLine.split(" ");
+
+                for (String str : words) {
+                    if (counter == 3) {
+                        break;
+                    }
+                        if (!isNumeric(str)) {
+                            switch (counter) {
+                                case 0:
+                                    toWrite = String.format(toWrite, "%s", str.charAt(0) + ".", "%s");
+                                    break;
+                                case 1:
+                                    toWrite = String.format(toWrite, str, "%s");
+                                    break;
+                                case 2:
+                                    toWrite = String.format(toWrite, str.charAt(0) + ".");
+                                    break;
+                            }
+                        }
+                        counter++;
+                }
+                toWrite = toWrite.replace("%s", "").trim();
+                out.write(toWrite + "\n");
             }
             out.close();
         } catch (Exception e) {
