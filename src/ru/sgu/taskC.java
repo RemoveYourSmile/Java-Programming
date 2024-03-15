@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class taskC {
     public static void main(String[] args){
 
-        File file = new File("input1.txt");
+        File file = new File("input.txt");
 
         try {
             Scanner in = new Scanner(file);
